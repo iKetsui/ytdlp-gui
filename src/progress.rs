@@ -5,6 +5,7 @@ use iced::Length;
 use serde::{Deserialize, Serialize};
 
 use crate::{app::SPACING, Message, YtGUI};
+use notify_rust::Notification;
 
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
 #[serde(tag = "type")]
@@ -191,6 +192,10 @@ impl YtGUI {
                                     self.command.finished_single_video();
                                 } else {
                                     self.end_download(Some(Ok(String::from("Finished!"))));
+                                    Notification::new()
+                                        .summary(" Download has finished")
+                                        .show()
+                                        .unwrap();
                                 }
                             }
                         }
