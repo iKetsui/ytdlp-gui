@@ -5,7 +5,6 @@ use iced::Length;
 use serde::{Deserialize, Serialize};
 
 use crate::{app::SPACING, Message, YtGUI};
-use notify_rust::Notification;
 
 #[derive(Debug, Deserialize, Serialize, PartialEq)]
 #[serde(tag = "type")]
@@ -84,14 +83,7 @@ pub fn parse_progress(progress: &str) -> Result<Vec<Progress>, ProgressError> {
     Ok(progresses)
 }
 
-impl YtGUI {
-    
-    pub fn notify_message(&mut self, a: String){
-        let _notify =  Notification::new()
-                                    .summary(&a)
-                                    .show();
-    }
-
+impl YtGUI {    
       pub fn show_download_progress<'a>(
         &'a self,
         download_message: &'a Result<String, DownloadError>,
