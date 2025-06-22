@@ -85,7 +85,14 @@ pub fn parse_progress(progress: &str) -> Result<Vec<Progress>, ProgressError> {
 }
 
 impl YtGUI {
-    pub fn show_download_progress<'a>(
+    
+    pub fn notify_message(&mut self, a: String){
+        let _notify =  Notification::new()
+                                    .summary(&a)
+                                    .show();
+    }
+
+      pub fn show_download_progress<'a>(
         &'a self,
         download_message: &'a Result<String, DownloadError>,
     ) -> iced::widget::Column<'a, Message> {
@@ -192,10 +199,6 @@ impl YtGUI {
                                     self.command.finished_single_video();
                                 } else {
                                     self.end_download(Some(Ok(String::from("Finished!"))));
-                                    Notification::new()
-                                        .summary(" Download has finished")
-                                        .show()
-                                        .unwrap();
                                 }
                             }
                         }
